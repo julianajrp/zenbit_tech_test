@@ -9,7 +9,18 @@ import linkedin from "../assets/linkedin.png";
 import facebook from "../assets/facebook.png";
 import twitter from "../assets/twitter.png";
 import { MessageContext } from "../contexts/MessageContext";
-
+import { InputDefault, TextDefault } from "../styledComponents/formComponents";
+import { ErrorLine, Title } from "../styledComponents/textComponents";
+import { ButtonDefault } from "../styledComponents/buttonComponents";
+import {
+  DivImg,
+  Eye1Div1,
+  Eye2Div1,
+  FaceDiv1,
+  FooterStyle,
+  MouthDiv1,
+} from "../styledComponents/divComponents";
+import { ImgIcon } from "../styledComponents/imgComponents";
 const LeaveMessagePage = () => {
   const navigate = useNavigate();
   const { sendMessageToApi } = useContext(MessageContext);
@@ -31,27 +42,42 @@ const LeaveMessagePage = () => {
   return (
     <div>
       <div>
-        <h1>Reach out to us!</h1>
+        <Title>Reach out to us!</Title>
         <form onSubmit={handleSubmit((e) => sendMessageToApi(e))}>
-          <input type="text" placeholder="Your name*" {...register("name")} />
-          <p>{errors.name?.message?.toString()}</p>
-          <input type="text" placeholder="Your email*" {...register("email")} />
-          <p>{errors.email?.message?.toString()}</p>
-          <input
+          <InputDefault
+            type="text"
+            placeholder="Your name*"
+            {...register("name")}
+          />
+          <ErrorLine>{errors.name?.message?.toString()}</ErrorLine>
+          <InputDefault
+            type="text"
+            placeholder="Your email*"
+            {...register("email")}
+          />
+          <ErrorLine>{errors.email?.message?.toString()}</ErrorLine>
+          <TextDefault
             type="text"
             placeholder="Your message*"
             {...register("message")}
           />
-          <p>{errors.message?.message?.toString()}</p>
-          <button type="submit"> Send message</button>
+          <ErrorLine>{errors.message?.message?.toString()}</ErrorLine>
+          <ButtonDefault type="submit"> Send message</ButtonDefault>
         </form>
       </div>
-      <footer>
-        <img src={facebook} alt="" />
-        <img src={twitter} alt="" />
-        <img src={linkedin} alt="" />
-        <img src={pinterest} alt="" />
-      </footer>
+      <FaceDiv1>
+        <Eye1Div1></Eye1Div1>
+        <Eye2Div1></Eye2Div1>
+        <MouthDiv1></MouthDiv1>
+      </FaceDiv1>
+      <FooterStyle>
+        <DivImg>
+          <ImgIcon src={facebook} alt="" />
+          <ImgIcon src={twitter} alt="" />
+          <ImgIcon src={linkedin} alt="" />
+          <ImgIcon src={pinterest} alt="" />
+        </DivImg>
+      </FooterStyle>
     </div>
   );
 };
