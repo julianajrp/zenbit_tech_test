@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { iMessage } from "../contexts/MessageContext";
 import pinterest from "../assets/pinterest.png";
 import linkedin from "../assets/linkedin.png";
 import facebook from "../assets/facebook.png";
@@ -18,41 +16,22 @@ import {
   DivForm,
   DivImg,
   DivMap,
-  Eye1Div1,
-  Eye1Div2,
-  Eye1Div3,
-  Eye1Div4,
-  Eye1Div5,
-  Eye1Div6,
-  Eye2Div1,
-  Eye2Div2,
-  Eye2Div3,
-  Eye2Div4,
-  Eye2Div5,
-  Eye2Div6,
-  FaceDiv1,
-  FaceDiv2,
-  FaceDiv3,
-  FaceDiv4,
-  FaceDiv5,
-  FaceDiv6,
   FooterStyle,
   FormStyle,
-  MouthDiv1,
-  MouthDiv2,
-  MouthDiv3,
-  MouthDiv4,
-  MouthDiv5,
-  MouthDiv6,
 } from "../styledComponents/divComponents";
 import { ImgIcon } from "../styledComponents/imgComponents";
+import ImagesComponent from "../components/ImagesComponent";
+
+export interface iForm {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const LeaveMessagePage = () => {
-  const navigate = useNavigate();
   const { sendMessageToApi } = useContext(MessageContext);
-  const goToLogin = () => {
-    navigate("/login");
-  };
-  const logSchema = yup.object().shape({
+
+  const formSchema = yup.object().shape({
     name: yup.string().required("Required field."),
     email: yup.string().email().required("Required field."),
     message: yup.string().required("Required field."),
@@ -61,21 +40,27 @@ const LeaveMessagePage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iMessage>({
-    resolver: yupResolver(logSchema),
+  } = useForm<iForm>({
+    resolver: yupResolver(formSchema),
   });
+  const onSubmit = (data: iForm) => {
+    sendMessageToApi(data);
+    console.log(data);
+  };
+
   return (
     <DivAll>
       <DivContent>
         <DivForm>
           <Title>Reach out to us!</Title>
-          <FormStyle onSubmit={handleSubmit((e) => sendMessageToApi(e))}>
+          <FormStyle onSubmit={handleSubmit(onSubmit)}>
             <InputDefault
               type="text"
               placeholder="Your name*"
               {...register("name")}
             />
             <ErrorLine>{errors.name?.message?.toString()}</ErrorLine>
+
             <InputDefault
               type="text"
               placeholder="Your email*"
@@ -93,36 +78,7 @@ const LeaveMessagePage = () => {
         </DivForm>
         <DivMap></DivMap>
       </DivContent>
-      <FaceDiv1>
-        <Eye1Div1></Eye1Div1>
-        <Eye2Div1></Eye2Div1>
-        <MouthDiv1></MouthDiv1>
-      </FaceDiv1>
-      <FaceDiv2>
-        <Eye1Div2></Eye1Div2>
-        <Eye2Div2></Eye2Div2>
-        <MouthDiv2></MouthDiv2>
-      </FaceDiv2>
-      <FaceDiv3>
-        <Eye1Div3></Eye1Div3>
-        <Eye2Div3></Eye2Div3>
-        <MouthDiv3></MouthDiv3>
-      </FaceDiv3>
-      <FaceDiv4>
-        <Eye1Div4></Eye1Div4>
-        <Eye2Div4></Eye2Div4>
-        <MouthDiv4></MouthDiv4>
-      </FaceDiv4>
-      <FaceDiv5>
-        <Eye1Div5></Eye1Div5>
-        <Eye2Div5></Eye2Div5>
-        <MouthDiv5></MouthDiv5>
-      </FaceDiv5>
-      <FaceDiv6>
-        <Eye1Div6></Eye1Div6>
-        <Eye2Div6></Eye2Div6>
-        <MouthDiv6></MouthDiv6>
-      </FaceDiv6>
+      <ImagesComponent></ImagesComponent>
       <FooterStyle>
         <DivImg>
           <ImgIcon

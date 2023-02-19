@@ -30,36 +30,35 @@ export const MessageContext = createContext<iMessageContext>(
 );
 
 export const MessageProvider = ({ children }: iMessageProviderProps) => {
-  const baseUrl = "https://kenziehub.herokuapp.com";
+  const baseUrl = "https://api-zenbit-tech.onrender.com";
+  // const baseUrl = "http://localhost:4000";
   // const navigate = useNavigate();
   const [listMessage, setListMessage] = useState([] as iMessage[]);
 
-  // useEffect(() => {
-  //   async function getMessageFromApi() {
-  //     try {
-  //       const token: string | null = localStorage.getItem("authToken");
-  //       axios.defaults.headers.authorization = `Bearer ${token}`;
-  //       const user: iData = await axios.get(`${baseUrl}/profile`);
-  //       console.log(user.data.Messages);
-  //       setListMessage(user.data.Messages);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   console.log(listMessage);
-  //   getMessageFromApi();
-  // }, []);
+  useEffect(() => {
+    async function getMessageFromApi() {
+      try {
+        const messages: iResponse = await axios.get(`${baseUrl}/list`);
+        console.log(messages.data.message, "aqui1");
+        setListMessage([...listMessage, messages.data]);
+        console.log(listMessage, "aqui2");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    console.log(listMessage);
+    getMessageFromApi();
+  }, []);
 
   const sendMessageToApi = async (data: iMessage) => {
     try {
-      const response: iResponse = await axios.post(`${baseUrl}/messages`, data);
+      const response: iResponse = await axios.post(`${baseUrl}/`, data);
 
-      toast.success("Tecnologia adicionada com sucesso!");
+      console.log(response.data);
       setListMessage([...listMessage, response.data]);
+      console.log(listMessage, "aquiii");
     } catch (error) {
       console.log(error);
-
-      toast.error("Houve algum erro, tente novamente!");
     }
   };
 

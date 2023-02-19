@@ -2,7 +2,6 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
 import LeaveMessagePage from "./pages/LeaveMessagePage";
-import LoginAdminPage from "./pages/LoginAdminPage";
 import AdminPage from "./pages/AdminPage";
 import GlobalStyle from "./styledComponents/global";
 function App() {
@@ -19,8 +18,7 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<LeaveMessagePage />} />
-        <Route path="/login" element={<LoginAdminPage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/requests" element={<AdminPage />} />
       </Routes>
     </>
   );

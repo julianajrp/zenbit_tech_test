@@ -23,7 +23,7 @@ gap: 20px;
 padding: 50px 60px;
 `;
 
-export const FormStyle = styled.div`
+export const FormStyle = styled.form`
 display: flex;
 flex-direction: column;
 gap: 5px;
@@ -44,7 +44,16 @@ border-top: 1px solid var(--around_form_grey);
 background-color: var(--other_cloud_grey);
 
 `
-
+export const DivList = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  background: var(--around_form_grey);
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  border-radius: 4px;
+`;
 //FACE ONE//
 export const FaceDiv1 = styled.div`
 border-radius: 50%;
@@ -55,6 +64,7 @@ position: absolute;
 bottom: 10px;
 left: 50px;
 transform: rotate(-45deg);
+cursor: pointer;
 
 `
 export const Eye1Div1 = styled.div`
